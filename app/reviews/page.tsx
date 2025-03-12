@@ -1,4 +1,4 @@
-function ReviesPage() {
-  return <div>ReviesPage</div>;
+function ReviewsPage() {
+  return <div>ReviewsPage</div>;
 }
-export default ReviesPage;
+export default ReviewsPage;
