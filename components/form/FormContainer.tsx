@@ -1,7 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useActionState as useFormState } from "react";
 import { toast } from "sonner";
 import { actionFunction } from "@/utils/types";
 
