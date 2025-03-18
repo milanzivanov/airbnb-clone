@@ -6,7 +6,7 @@ import { createProfileAction } from "@/utils/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-async function CreateProfilePage() {
+async function CreateProfile() {
   const user = await currentUser();
 
   if (user?.privateMetadata?.hasProfile) redirect("/");
@@ -27,4 +27,4 @@ async function CreateProfilePage() {
     </section>
   );
 }
-export default CreateProfilePage;
+export default CreateProfile;
