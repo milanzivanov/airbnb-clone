@@ -17,7 +17,7 @@ function CategoriesList({
         <div className="flex gap-x-4">
           {categories.map((item) => {
             const isActive = item.label === category;
-            console.log("///////", item);
+            // console.log("///////", item);
             return (
               <Link
                 key={item.label}
