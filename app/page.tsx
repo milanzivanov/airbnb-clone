@@ -1,8 +1,24 @@
-function HomePage() {
+import CategoriesList from "@/components/home/CategoriesList";
+import PropertiesContainer from "@/components/home/PropertiesContainer";
+
+async function HomePage({
+  searchParams
+}: {
+  searchParams: { category?: string; search?: string };
+}) {
+  const awaitedSearchParams = await Promise.resolve(searchParams); // Simulate awaiting searchParams
+
   return (
-    <div>
-      <h1 className="text-3xl">Home page</h1>
-    </div>
+    <section>
+      <CategoriesList
+        category={awaitedSearchParams.category}
+        search={awaitedSearchParams.search}
+      />
+      <PropertiesContainer
+        category={awaitedSearchParams.category}
+        search={awaitedSearchParams.search}
+      />
+    </section>
   );
 }
 export default HomePage;
