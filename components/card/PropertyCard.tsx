@@ -5,6 +5,8 @@ import Link from "next/link";
 // import FavoriteToggleButton from "./FavoriteToggleButton";
 import { PropertyCardProps } from "@/utils/types";
 import { formatCurrency } from "@/utils/format";
+import PropertyRating from "./PropertyRating";
+import FavoriteToggleButton from "./FavoriteToggleButton";
 
 function PropertyCard({ property }: { property: PropertyCardProps }) {
   const { image, name, price } = property;
@@ -28,6 +30,7 @@ function PropertyCard({ property }: { property: PropertyCardProps }) {
             {name.substring(0, 30)}
           </h3>
           {/* property rating */}
+          <PropertyRating inPage={false} propertyId={propertyId} />
         </div>
         <p className="text-sm mt-1 text-muted-foreground ">
           {tagline.substring(0, 40)}
@@ -42,6 +45,7 @@ function PropertyCard({ property }: { property: PropertyCardProps }) {
       </Link>
       <div className="absolute top-5 right-5 z-5">
         {/* favorite toggle button */}
+        <FavoriteToggleButton propertyId={propertyId} />
       </div>
     </article>
   );
