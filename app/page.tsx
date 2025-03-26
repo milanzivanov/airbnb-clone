@@ -1,5 +1,7 @@
+import LoadingCards from "@/components/card/LoadingCards";
 import CategoriesList from "@/components/home/CategoriesList";
 import PropertiesContainer from "@/components/home/PropertiesContainer";
+import { Suspense } from "react";
 
 async function HomePage({
   searchParams
@@ -14,10 +16,12 @@ async function HomePage({
         category={awaitedSearchParams.category}
         search={awaitedSearchParams.search}
       />
-      <PropertiesContainer
-        category={awaitedSearchParams.category}
-        search={awaitedSearchParams.search}
-      />
+      <Suspense fallback={<LoadingCards />}>
+        <PropertiesContainer
+          category={awaitedSearchParams.category}
+          search={awaitedSearchParams.search}
+        />
+      </Suspense>
     </section>
   );
 }
