@@ -1,7 +1,9 @@
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
+import BookingCalendar from "@/components/properties/BookingCalendar";
 import BreadCrumbs from "@/components/properties/BreadCrumbs";
 import ImageContainer from "@/components/properties/ImageContainer";
+import PropertyDetails from "@/components/properties/PropertyDetails";
 import ShareButton from "@/components/properties/ShareButton";
 import { fetchPropertyDetails } from "@/utils/actions";
 import { redirect } from "next/navigation";
@@ -29,9 +31,11 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
             <h1 className="text-xl font-bold">{property.name}</h1>
             <PropertyRating inPage propertyId={property.id} />
           </div>
+          <PropertyDetails details={details} />
         </div>
         <div className="lg:col-span-4 flex flex-col items-center">
           {/* calendar */}
+          <BookingCalendar />
         </div>
       </section>
     </section>
