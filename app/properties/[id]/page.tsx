@@ -1,12 +1,15 @@
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
+import Amenities from "@/components/properties/Amenities";
 import BookingCalendar from "@/components/properties/BookingCalendar";
 import BreadCrumbs from "@/components/properties/BreadCrumbs";
+import Description from "@/components/properties/Description";
 import ImageContainer from "@/components/properties/ImageContainer";
 import PropertyDetails from "@/components/properties/PropertyDetails";
 import ShareButton from "@/components/properties/ShareButton";
 import UserInfo from "@/components/properties/UserInfo";
 import { fetchPropertyDetails } from "@/utils/actions";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 import { redirect } from "next/navigation";
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
@@ -38,6 +41,10 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           </div>
           <PropertyDetails details={details} />
           <UserInfo profile={{ firstName, profileImage }} />
+
+          <Separator className="mt-4 bg-gray-300 h-[1px]" />
+          <Description description={property.description} />
+          <Amenities amenities={property.amenities} />
         </div>
         <div className="lg:col-span-4 flex flex-col items-center">
           {/* calendar */}
