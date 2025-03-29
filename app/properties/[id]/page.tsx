@@ -3,11 +3,13 @@ import PropertyRating from "@/components/card/PropertyRating";
 import Amenities from "@/components/properties/Amenities";
 import BookingCalendar from "@/components/properties/BookingCalendar";
 import BreadCrumbs from "@/components/properties/BreadCrumbs";
+import ClientDynamicMap from "@/components/properties/ClientDynamicMap";
 import Description from "@/components/properties/Description";
 import ImageContainer from "@/components/properties/ImageContainer";
 import PropertyDetails from "@/components/properties/PropertyDetails";
 import ShareButton from "@/components/properties/ShareButton";
 import UserInfo from "@/components/properties/UserInfo";
+import { Skeleton } from "@/components/ui/skeleton";
 import { fetchPropertyDetails } from "@/utils/actions";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { redirect } from "next/navigation";
@@ -45,6 +47,8 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <Separator className="mt-4 bg-gray-300 h-[1px]" />
           <Description description={property.description} />
           <Amenities amenities={property.amenities} />
+          {/* map */}
+          <ClientDynamicMap countryCode={property.country} />
         </div>
         <div className="lg:col-span-4 flex flex-col items-center">
           {/* calendar */}
