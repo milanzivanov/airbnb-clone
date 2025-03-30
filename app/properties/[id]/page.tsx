@@ -14,7 +14,8 @@ import { fetchPropertyDetails } from "@/utils/actions";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { redirect } from "next/navigation";
 
-async function PropertyDetailsPage({ params }: { params: { id: string } }) {
+async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const property = await fetchPropertyDetails(params.id);
 
   const firstName = property?.profile?.firstName || "";
