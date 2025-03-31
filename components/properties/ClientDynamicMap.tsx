@@ -9,7 +9,7 @@ const DynamicMap = dynamic(() => import("./PropertyMap"), {
 });
 
 function ClientDynamicMap({ countryCode }: { countryCode: string }) {
-  return <DynamicMap countryCode={countryCode} />;
+  return <DynamicMap key={countryCode} countryCode={countryCode} />;
 }
 
 export default ClientDynamicMap;

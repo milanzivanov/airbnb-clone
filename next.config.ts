@@ -17,7 +17,8 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "5mb" // Increase the limit to 5MB
     }
-  }
+  },
+  reactStrictMode: false
 };
 
 export default nextConfig;
