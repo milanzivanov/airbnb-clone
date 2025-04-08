@@ -11,9 +11,10 @@ import ShareButton from "@/components/properties/ShareButton";
 import UserInfo from "@/components/properties/UserInfo";
 import PropertyReviews from "@/components/reviews/PropertyReviews";
 import SubmitReview from "@/components/reviews/SubmitReview";
-import { fetchPropertyDetails } from "@/utils/actions";
+import { fetchPropertyDetails, findExistingReview } from "@/utils/actions";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -25,6 +26,12 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
   if (!property) redirect("/");
   const { baths, bedrooms, beds, guests } = property;
   const details = { baths, bedrooms, beds, guests };
+
+  const { userId } = auth();
+  const isNotOwner = property.profile.clerkId !== userId;
+  const reviewDoseNotExist =
+    userId && isNotOwner && !(await findExistingReview(userId, property.id));
+
   return (
     <section>
       <BreadCrumbs name={property.name} />
@@ -57,7 +64,8 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
           <BookingCalendar />
         </div>
       </section>
-      <SubmitReview propertyId={property.id} />
+      {reviewDoseNotExist && <SubmitReview propertyId={property.id} />}
+
       <PropertyReviews propertyId={property.id} />
     </section>
   );
