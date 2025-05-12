@@ -1,7 +1,6 @@
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
 import Amenities from "@/components/properties/Amenities";
-import BookingCalendar from "@/components/properties/BookingCalendar";
 import BreadCrumbs from "@/components/properties/BreadCrumbs";
 import ClientDynamicMap from "@/components/properties/ClientDynamicMap";
 import Description from "@/components/properties/Description";
@@ -32,6 +31,9 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
   const reviewDoseNotExist =
     userId && isNotOwner && !(await findExistingReview(userId, property.id));
 
+  //
+  // console.log(property.bookings);
+
   return (
     <section>
       <BreadCrumbs name={property.name} />
@@ -61,7 +63,6 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
         </div>
         <div className="lg:col-span-4 flex flex-col items-center">
           {/* calendar */}
-          <BookingCalendar />
         </div>
       </section>
       {reviewDoseNotExist && <SubmitReview propertyId={property.id} />}

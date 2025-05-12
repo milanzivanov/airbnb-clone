@@ -292,7 +292,13 @@ export const fetchPropertyDetails = async (id: string) => {
       id
     },
     include: {
-      profile: true
+      profile: true,
+      bookings: {
+        select: {
+          checkIn: true,
+          checkOut: true
+        }
+      }
     }
   });
 };

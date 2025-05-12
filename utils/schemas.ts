@@ -48,6 +48,7 @@ function validateFile() {
     }, "File must be an image");
 }
 
+//
 export const propertySchema = z.object({
   name: z
     .string()
