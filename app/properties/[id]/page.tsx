@@ -14,6 +14,7 @@ import { fetchPropertyDetails, findExistingReview } from "@/utils/actions";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import ClientDynamicBookingWrapper from "@/components/booking/ClientBookingDynamicWrapper";
 
 async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -63,6 +64,11 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
         </div>
         <div className="lg:col-span-4 flex flex-col items-center">
           {/* calendar */}
+          <ClientDynamicBookingWrapper
+            propertyId={property.id}
+            price={property.price}
+            bookings={property.bookings}
+          />
         </div>
       </section>
       {reviewDoseNotExist && <SubmitReview propertyId={property.id} />}
