@@ -11,15 +11,15 @@ export const calculateTotals = ({
   checkOut,
   price
 }: BookingDetails) => {
-  const totalDays = calculateDaysBetween({ checkIn, checkOut });
-  const subTotal = totalDays * price;
+  const totalNights = calculateDaysBetween({ checkIn, checkOut });
+  const subTotal = totalNights * price;
   const cleaning = 20;
   const service = 40;
   const tax = subTotal * 0.1;
   const orderTotal = subTotal + cleaning + service + tax;
 
   return {
-    totalDays,
+    totalNights,
     subTotal,
     cleaning,
     service,

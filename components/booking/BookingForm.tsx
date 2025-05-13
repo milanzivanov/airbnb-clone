@@ -11,7 +11,7 @@ export default function BookingForm() {
   const checkIn = range?.from as Date;
   const checkOut = range?.to as Date;
 
-  const { totalDays, subTotal, cleaning, service, tax, orderTotal } =
+  const { totalNights, subTotal, cleaning, service, tax, orderTotal } =
     calculateTotals({
       checkIn,
       checkOut,
@@ -21,7 +21,7 @@ export default function BookingForm() {
   return (
     <Card className="p-8 mb-4">
       <CardTitle className="mb-8">Summary </CardTitle>
-      <FormRow label={`$${price} x ${totalDays} nights`} amount={subTotal} />
+      <FormRow label={`$${price} x ${totalNights} nights`} amount={subTotal} />
       <FormRow label="Cleaning Fee" amount={cleaning} />
       <FormRow label="Service Fee" amount={service} />
       <FormRow label="Tax" amount={tax} />
