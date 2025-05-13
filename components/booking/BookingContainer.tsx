@@ -6,8 +6,11 @@ import BookingForm from "./BookingForm";
 
 export default function BookingContainer() {
   const state = useProperty();
-  const { propertyId, price, bookings, range } = state;
-  console.log("BookingContainer", range, propertyId, price, bookings);
+  const { range } = state;
+  console.log("BookingContainer", range);
+
+  if (!range || !range.from || !range.to) return null;
+  if (range.to.getTime() === range.from.getTime()) return null;
 
   return (
     <div className="w-full">
