@@ -51,21 +51,25 @@ export const generateDisabledDates = (
 
   const disabledDates: { [key: string]: boolean } = {};
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // set time to 00:00:00 to compare only the date part
+  today.setHours(0, 0, 0, 0);
 
   disabledDays.forEach((range) => {
     if (!range.from || !range.to) return;
 
+    // Clone and normalize dates
     const currentDate = new Date(range.from);
+    currentDate.setHours(0, 0, 0, 0);
+
     const endDate = new Date(range.to);
+    endDate.setHours(0, 0, 0, 0);
 
     while (currentDate <= endDate) {
-      if (currentDate < today) {
-        currentDate.setDate(currentDate.getDate() + 1);
-        continue;
+      if (currentDate >= today) {
+        const dateString = currentDate.toLocaleDateString("sv-SE");
+        disabledDates[dateString] = true;
       }
-      const dateString = currentDate.toISOString().split("T")[0];
-      disabledDates[dateString] = true;
+
+      // Move to next day
       currentDate.setDate(currentDate.getDate() + 1);
     }
   });
