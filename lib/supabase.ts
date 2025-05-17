@@ -5,7 +5,7 @@ const bucket = "temp-airbnb-clone";
 const url = process.env.SUPABASE_URL as string;
 const key = process.env.SUPABASE_KEY as string;
 
-const supabase = createClient(url, key);
+export const supabase = createClient(url, key);
 
 export const uploadImage = async (image: File) => {
   const timestam = Date.now();

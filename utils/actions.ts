@@ -11,7 +11,7 @@ import db from "./db";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { uploadImage } from "@/lib/supabase";
+import { uploadImage, supabase } from "@/lib/supabase";
 import { calculateTotals } from "./calculateTotals";
 
 const getAuthUser = async () => {
@@ -555,12 +555,37 @@ export const fetchRentals = async () => {
   return rentalsWithBookingSums;
 };
 
-//
+// delete rental and image from supabase storage
 export async function deleteRentalAction(prevState: { propertyId: string }) {
   const { propertyId } = prevState;
   const user = await getAuthUser();
 
   try {
+    // Fetch rental first to get image path
+    const rental = await db.property.findUnique({
+      where: {
+        id: propertyId,
+        profileId: user.id
+      },
+      select: {
+        image: true
+      }
+    });
+
+    if (!rental) return { message: "Rental not found" };
+
+    // Delete the image from Supabase Storage
+    if (rental.image) {
+      const { error: deleteError } = await supabase.storage
+        .from("temp-airbnb-clone")
+        .remove([rental.image]);
+
+      if (deleteError) {
+        throw deleteError.message;
+      }
+    }
+
+    // // Delete the rental from database
     await db.property.delete({
       where: {
         id: propertyId,
