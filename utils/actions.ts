@@ -554,6 +554,8 @@ export const fetchRentals = async () => {
   );
   return rentalsWithBookingSums;
 };
+
+//
 export async function deleteRentalAction(prevState: { propertyId: string }) {
   const { propertyId } = prevState;
   const user = await getAuthUser();
@@ -572,3 +574,70 @@ export async function deleteRentalAction(prevState: { propertyId: string }) {
     return renderError(error);
   }
 }
+
+export const fetchRentalDetails = async (propertyId: string) => {
+  const user = await getAuthUser();
+  const property = await db.property.findUnique({
+    where: {
+      id: propertyId,
+      profileId: user.id
+    }
+  });
+  return property;
+};
+
+export const updatePropertyAction = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+  const propertyId = formData.get("id") as string;
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const validatedFields = validateWithZodSchema(propertySchema, rawData);
+    await db.property.update({
+      where: {
+        id: propertyId,
+        profileId: user.id
+      },
+      data: {
+        ...validatedFields
+      }
+      // data: validatedFields
+    });
+    revalidatePath("/rentals/${propertyId}/edit");
+    return { message: "Property updated successfully" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const updatePropertyImageAction = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+  const propertyId = formData.get("id") as string;
+
+  try {
+    const image = formData.get("image") as File;
+    const validatedFields = validateWithZodSchema(imageSchema, {
+      image
+    });
+    const fullPath = await uploadImage(validatedFields.image);
+    await db.property.update({
+      where: {
+        id: propertyId,
+        profileId: user.id
+      },
+      data: {
+        image: fullPath.data.publicUrl
+      }
+    });
+    revalidatePath("/rentals/${propertyId}/edit");
+    return { message: "Property image updated successfully" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
