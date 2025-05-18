@@ -71,6 +71,8 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
           />
         </div>
       </section>
+
+      {/* submit review  */}
       {reviewDoseNotExist && <SubmitReview propertyId={property.id} />}
 
       <PropertyReviews propertyId={property.id} />

@@ -15,7 +15,11 @@ function PropertyCard({ property }: { property: PropertyCardProps }) {
       <Link href={`/properties/${propertyId}`}>
         <div className="relative h-[300px] mb-2 overflow-hidden rounded-md">
           <Image
-            src={image}
+            src={
+              image
+                ? `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${image}`
+                : ""
+            }
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
             alt={name}

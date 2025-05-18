@@ -10,7 +10,12 @@ function ImageContainer({
   return (
     <section className="h-[300px] md:h-[500px] relative mt-8">
       <Image
-        src={mainImage}
+        src={
+          mainImage
+            ? `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${mainImage}`
+            : ""
+        }
+        // src={mainImage}
         fill
         sizes="100vw"
         alt={name}

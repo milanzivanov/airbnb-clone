@@ -138,7 +138,7 @@ export const updateProfileImageAction = async (
         clerkId: user.id
       },
       data: {
-        profileImage: fullPath.data.publicUrl
+        profileImage: fullPath
       }
     });
 
@@ -171,7 +171,7 @@ export const createPropertyAction = async (
     await db.property.create({
       data: {
         ...validatedFields,
-        image: fullPath.data.publicUrl,
+        image: fullPath,
         profileId: user.id
       }
     });
@@ -657,7 +657,7 @@ export const updatePropertyImageAction = async (
         profileId: user.id
       },
       data: {
-        image: fullPath.data.publicUrl
+        image: fullPath
       }
     });
     revalidatePath("/rentals/${propertyId}/edit");
