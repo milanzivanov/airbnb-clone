@@ -11,5 +11,6 @@ export const links: NavLink[] = [
   { href: "/reservations ", label: "reservations" },
   { href: "/rentals/create ", label: "create rental" },
   { href: "/rentals", label: "my rentals" },
-  { href: "/profile ", label: "profile" }
+  { href: "/admin", label: "admin" },
+  { href: "/profile", label: "profile" }
 ];
