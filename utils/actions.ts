@@ -660,9 +660,39 @@ export const updatePropertyImageAction = async (
         image: fullPath
       }
     });
-    revalidatePath("/rentals/${propertyId}/edit");
+    revalidatePath(`/rentals/${propertyId}/edit`);
     return { message: "Property image updated successfully" };
   } catch (error) {
     return renderError(error);
   }
+};
+
+//reservations
+export const fetchReservations = async () => {
+  const user = await getAuthUser();
+  console.log("//// user", user);
+
+  const reservations = await db.booking.findMany({
+    where: {
+      property: {
+        profileId: user.id
+      }
+    },
+
+    orderBy: {
+      createdAt: "desc" // or 'asc' for ascending order
+    },
+
+    include: {
+      property: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          country: true
+        }
+      } // include property details in the result
+    }
+  });
+  return reservations;
 };
