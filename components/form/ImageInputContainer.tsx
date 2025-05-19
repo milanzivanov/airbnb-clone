@@ -28,7 +28,11 @@ function ImageInputContainer(props: ImageInputContainerProps) {
     <div>
       {image ? (
         <Image
-          src={image}
+          src={
+            image.startsWith("http")
+              ? image
+              : `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${image}`
+          }
           width={100}
           height={100}
           className="rounded-md object-cover mb-4 w-24 h-24"

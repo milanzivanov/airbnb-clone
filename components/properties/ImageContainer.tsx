@@ -15,7 +15,6 @@ function ImageContainer({
             ? `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${mainImage}`
             : ""
         }
-        // src={mainImage}
         fill
         sizes="100vw"
         alt={name}

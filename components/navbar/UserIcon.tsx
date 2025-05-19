@@ -9,7 +9,12 @@ async function UserIcon() {
     return (
       <img
         alt="profile image"
-        src={profileImage}
+        // src={profileImage ? profileImage : ""}
+        src={
+          profileImage.startsWith("http")
+            ? profileImage
+            : `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${profileImage}`
+        }
         className="w-6 h-6 rounded-full object-cover"
       />
     );

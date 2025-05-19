@@ -27,13 +27,15 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
   const { baths, bedrooms, beds, guests } = property;
   const details = { baths, bedrooms, beds, guests };
 
+  // allow user to submit review if they are not the owner of the property
+  // and they have not already submitted a review
   const { userId } = auth();
   const isNotOwner = property.profile.clerkId !== userId;
   const reviewDoseNotExist =
     userId && isNotOwner && !(await findExistingReview(userId, property.id));
 
-  //
-  // console.log(property.bookings);
+  // const currentUser = auth();
+  // console.log("////////// currentUser", currentUser);
 
   return (
     <section>
@@ -75,6 +77,7 @@ async function PropertyDetailsPage(props: { params: Promise<{ id: string }> }) {
       {/* submit review  */}
       {reviewDoseNotExist && <SubmitReview propertyId={property.id} />}
 
+      {/* <SubmitReview propertyId={property.id} /> */}
       <PropertyReviews propertyId={property.id} />
     </section>
   );

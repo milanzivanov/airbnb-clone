@@ -18,7 +18,11 @@ function ReviewCard({ reviewInfo, children }: ReviewCardProps) {
       <CardHeader>
         <div className="flex items-center">
           <img
-            src={reviewInfo.image}
+            src={
+              reviewInfo.image.startsWith("http")
+                ? reviewInfo.image
+                : `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${reviewInfo.image}`
+            }
             alt="profile"
             className="w-12 h-12 rounded-full object-cover"
           />

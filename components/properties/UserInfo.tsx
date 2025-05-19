@@ -10,8 +10,13 @@ type UserInfoProps = {
 function UserInfo({ profile: { profileImage, firstName } }: UserInfoProps) {
   return (
     <article className="grid grid-cols-[auto_1fr] gap-4 mt-4">
+      {/* must inspect this part */}
       <Image
-        src={profileImage}
+        src={
+          profileImage
+            ? `https://ocgeuaanllqmawsggybj.supabase.co/storage/v1/object/public/temp-airbnb-clone/${profileImage}`
+            : ""
+        }
         alt={firstName}
         width={50}
         height={50}
